@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,9 +20,8 @@ data class Movie(val id: Int, val title: String, val image: Int, val description
 fun MovieItem(movie: Movie, onClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxHeight()
             .clickable { onClick() }
-            .padding(16.dp)
     ) {
         Image(
             painter = painterResource(id = movie.image),
@@ -33,5 +33,6 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = movie.title)
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
