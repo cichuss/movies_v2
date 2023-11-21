@@ -15,11 +15,11 @@ fun Navigation() {
             MainScreen(navController)
         }
         composable(
-            "com.example.movies.screens.DescriptionScreen/{movieId}",
+            "DescriptionScreen/{movieId}",
             arguments = listOf(navArgument("movieId") { type = NavType.IntType })
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getInt("movieId") ?: 0
-            DescriptionScreen(movieId = movieId, navController = navController)
+            DescriptionScreen(movieId = movieId)
         }
     }
 }

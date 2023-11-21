@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.movies.Movie
 import com.example.movies.MovieItem
+import com.example.movies.R
 
 @Composable
 fun MainScreen(navController: NavController) {
     Column {
-        // List of movies
         LazyColumn {
             items(getSampleMovies()) { movie ->
                 MovieItem(movie = movie, onClick = {
@@ -26,21 +26,21 @@ fun getSampleMovies(): List<Movie> {
     return listOf(
         Movie(
             id = 1,
-            title = "Inception",
-            imageUrl = "https://example.com/inception.jpg",
-            description = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+            title = "The Shawshank Redemption",
+            image = R.drawable.the_shawshank_redemption,
+            description = "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion."
         ),
         Movie(
             id = 2,
-            title = "The Shawshank Redemption",
-            imageUrl = "https://example.com/shawshank.jpg",
-            description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
+            title = "The Truman show",
+            image = R.drawable.the_truman_show,
+            description = "An insurance salesman discovers his whole life is actually a reality TV show."
         ),
         Movie(
             id = 3,
-            title = "The Dark Knight",
-            imageUrl = "https://example.com/darkknight.jpg",
-            description = "When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham."
+            title = "The Devil Wears Prada",
+            image = R.drawable.the_devil_wears_prada,
+            description = "A smart but sensible new graduate lands a job as an assistant to Miranda Priestly, the demanding editor-in-chief of a high fashion magazine."
         )
     )
 }

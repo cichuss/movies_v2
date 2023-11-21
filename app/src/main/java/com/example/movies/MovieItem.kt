@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
-data class Movie(val id: Int, val title: String, val imageUrl: String, val description: String)
+data class Movie(val id: Int, val title: String, val image: Int, val description: String)
 @Composable
 fun MovieItem(movie: Movie, onClick: () -> Unit) {
     Column(
@@ -23,21 +23,15 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             .clickable { onClick() }
             .padding(16.dp)
     ) {
-        // Movie image
-        movie.imageUrl?.let { imageUrl ->
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground), // Zastąp ikoną, którą chcesz użyć
-                contentDescription = null,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
-        }
+        Image(
+            painter = painterResource(id = movie.image),
+            contentDescription = movie.description,
+            modifier = Modifier
+                .height(200.dp),
+            contentScale = ContentScale.Fit
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Movie title
         Text(text = movie.title)
     }
 }
