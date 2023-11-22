@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -104,7 +105,8 @@ fun DescriptionScreen(movieId: Int) {
 
 @Composable
 fun ScenesContent(scenes: List<Scene>) {
-    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(3),
+            modifier = Modifier.fillMaxHeight()) {
         items(scenes) { scene ->
             ZoomableImage(image = scene.image)
         }
@@ -144,7 +146,10 @@ fun ZoomableImage(image: Int, modifier: Modifier = Modifier) {
             .clickable {
 //                ShowZoomedInView(image = image)
             }
-            .clip(MaterialTheme.shapes.medium),
+            .clip(MaterialTheme.shapes.medium)
+            .height(120.dp)
+            .padding(1.dp),
+
         contentScale = ContentScale.Crop
     )
 }

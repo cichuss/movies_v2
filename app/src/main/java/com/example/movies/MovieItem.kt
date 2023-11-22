@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,11 +31,12 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             painter = painterResource(id = movie.image),
             contentDescription = movie.description,
             modifier = Modifier
-                .height(200.dp),
-            contentScale = ContentScale.Fit
+                .height(250.dp)
+                .width(180.dp)
+                .padding(10.dp),
+            contentScale = ContentScale.Crop
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
         Text(text = movie.title)
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -73,26 +75,22 @@ fun getSampleMovies(): List<Movie> {
             image = R.drawable.the_truman_show_poster,
             description = "An insurance salesman discovers his whole life is actually a reality TV show.",
             scenes = listOf(
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground)
+                Scene(R.drawable.the_truman_show_scene1),
+                Scene(R.drawable.the_truman_show_scene2),
+                Scene(R.drawable.the_truman_show_scene3),
+                Scene(R.drawable.the_truman_show_scene4),
+                Scene(R.drawable.the_truman_show_scene5),
+                Scene(R.drawable.the_truman_show_scene6),
+                Scene(R.drawable.the_truman_show_scene7),
+                Scene(R.drawable.the_truman_show_scene8),
+                Scene(R.drawable.the_truman_show_scene9)
             ),
             cast = listOf(
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground)
+                Actor("Jim Carrey", R.drawable.the_truman_show_actor1),
+                Actor("Laura Linney", R.drawable.the_truman_show_actor2),
+                Actor("Noah Emmerich", R.drawable.the_truman_show_actor3),
+                Actor("Natascha McElhone", R.drawable.the_truman_show_actor4),
+                Actor("Ed Harris", R.drawable.the_truman_show_actor5)
             )
         ),
         Movie(
@@ -101,26 +99,23 @@ fun getSampleMovies(): List<Movie> {
             image = R.drawable.the_devil_wears_prada_poster,
             description = "A smart but sensible new graduate lands a job as an assistant to Miranda Priestly, the demanding editor-in-chief of a high fashion magazine.",
             scenes = listOf(
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground),
-                Scene(R.drawable.ic_launcher_foreground)
+                Scene(R.drawable.the_devil_wears_prada_scene1),
+                Scene(R.drawable.the_devil_wears_prada_scene2),
+                Scene(R.drawable.the_devil_wears_prada_scene3),
+                Scene(R.drawable.the_devil_wears_prada_scene4),
+                Scene(R.drawable.the_devil_wears_prada_scene5),
+                Scene(R.drawable.the_devil_wears_prada_scene6),
+                Scene(R.drawable.the_devil_wears_prada_scene7),
+                Scene(R.drawable.the_devil_wears_prada_scene8),
+                Scene(R.drawable.the_devil_wears_prada_scene9)
             ),
             cast = listOf(
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground),
-                Actor("", R.drawable.ic_launcher_foreground)
+                Actor("Meryl Streep", R.drawable.the_devil_wears_prada_actor1),
+                Actor("Anne Hathaway", R.drawable.the_devil_wears_prada_actor2),
+                Actor("Emily Blunt", R.drawable.the_devil_wears_prada_actor3),
+                Actor("Stanley Tucci", R.drawable.the_devil_wears_prada_actor4),
+                Actor("Adrian Grenier", R.drawable.the_devil_wears_prada_actor5),
+                Actor("Tracie Thoms", R.drawable.the_devil_wears_prada_actor6)
             )
         )
     )
