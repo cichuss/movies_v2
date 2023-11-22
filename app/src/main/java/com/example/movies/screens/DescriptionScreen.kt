@@ -34,7 +34,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.movies.Actor
 import com.example.movies.R
@@ -54,37 +56,82 @@ fun DescriptionScreen(movieId: Int) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = movie.image),
-                contentDescription = movie.description,
+            Row(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .height(200.dp),
-                contentScale = ContentScale.Fit
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Main image
+                Image(
+                    painter = painterResource(id = movie.image),
+                    contentDescription = movie.description,
+                    modifier = Modifier
+                        .height(200.dp)
+                        .clip(MaterialTheme.shapes.medium),
+                    contentScale = ContentScale.Fit
+                )
+
+                // Movie details
+                Column(
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(start = 16.dp)
+                ) {
+                    Text(text = movie.title,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold)
+                    Text(text = "Release Date: ${movie.releaseDate}",
+                        fontSize = 16.sp)
+                    Text(text = "Duration: ${movie.duration}",
+                        fontSize = 16.sp)
+                    Text(text = "Genre: ${movie.genre}",
+                        fontSize = 16.sp)
+                    Text(text = "Director: ${movie.directors.joinToString(", ")}",
+                        fontSize = 16.sp)
+                    Text(text = "Writers: ${movie.writers.joinToString(", ")}",
+                        fontSize = 16.sp)
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("Description",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
             )
-            Text("Description")
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(text = movie.description)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = movie.description,
+                fontSize = 16.sp)
             Spacer(modifier = Modifier.height(16.dp))
 
             TabRow(
                 selectedTabIndex = selectedTabIndex,
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .clip(MaterialTheme.shapes.medium),
                 contentColor = MaterialTheme.colorScheme.primary
             ) {
-                // Tab for Details
+                // Tab for Scenes
                 Tab(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 }
                 ) {
-                    Text("Scenes")
+                    Text("Scenes",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(5.dp)
+                    )
                 }
 
-                // Tab for Scenes
+                // Tab for Actors
                 Tab(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 }
                 ) {
-                    Text("Actors")
+                    Text("Actors",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(5.dp))
                 }
             }
 
@@ -94,14 +141,15 @@ fun DescriptionScreen(movieId: Int) {
                     // Show Scenes content
                     ScenesContent(movie.scenes)
                 }
-
                 else -> {
-                   CastContent(movie.cast)
+                    // Show Actors content
+                    CastContent(movie.cast)
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun ScenesContent(scenes: List<Scene>) {
@@ -124,12 +172,18 @@ fun CastContent(actors: List<Actor>) {
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Zoomable image of the actor
-                ZoomableImage(image = actor.image, modifier = Modifier.size(100.dp))
+                Image(
+                    painter = painterResource(id = actor.image), // Placeholder image
+                    contentDescription = actor.name,
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .clip(MaterialTheme.shapes.medium),
 
-                // Actor's name
+                    contentScale = ContentScale.Fit)
+
                 Spacer(modifier = Modifier.width(16.dp))
-                Text(text = actor.name)
+                Text(text = actor.name,
+                    fontSize = 16.sp)
             }
         }
     }
@@ -137,12 +191,11 @@ fun CastContent(actors: List<Actor>) {
 
 @Composable
 fun ZoomableImage(image: Int, modifier: Modifier = Modifier) {
-    // You can use a library like Coil or Accompanist to load images
     Image(
-        painter = painterResource(id = image), // Placeholder image
+        painter = painterResource(id = image),
         contentDescription = null,
         modifier = modifier
-            .background(MaterialTheme.colorScheme.onSurface)
+            .background(MaterialTheme.colorScheme.background)
             .clickable {
 //                ShowZoomedInView(image = image)
             }

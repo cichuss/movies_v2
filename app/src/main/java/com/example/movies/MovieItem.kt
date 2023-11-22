@@ -2,42 +2,56 @@ package com.example.movies
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-data class Movie(val id: Int, val title: String, val image: Int, val description: String, val scenes: List<Scene>, val cast: List<Actor>)
+data class Movie(val id: Int, val title: String, val image: Int, val description: String, val scenes: List<Scene>, val cast: List<Actor>, val directors: List<String>, val writers: List<String>, val releaseDate: String, val duration: String, val genre: String)
 data class Scene(val image: Int)
 data class Actor(val name: String, val image: Int)
 
 @Composable
 fun MovieItem(movie: Movie, onClick: () -> Unit) {
-    Column(
+    Row(
         modifier = Modifier
-            .fillMaxHeight()
-            .clickable { onClick() }
-    ) {
+            .fillMaxWidth()
+            .padding(16.dp)
+            .clickable {
+                onClick()
+                }
+        ) {
         Image(
             painter = painterResource(id = movie.image),
             contentDescription = movie.description,
             modifier = Modifier
                 .height(250.dp)
                 .width(180.dp)
-                .padding(10.dp),
+                .padding(10.dp)
+                .clip(MaterialTheme.shapes.medium),
             contentScale = ContentScale.Crop
         )
 
-        Text(text = movie.title)
+        Text(
+            text = movie.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+        )
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
@@ -67,7 +81,14 @@ fun getSampleMovies(): List<Movie> {
                 Actor("William Sandler", R.drawable.the_shawshank_redemption_actor4),
                 Actor("Clancy Brown", R.drawable.the_shawshank_redemption_actor5),
                 Actor("Gil Bellows", R.drawable.the_shawshank_redemption_actor6)
-            )
+            ),
+            directors = listOf("Frank Darabont"),
+            writers = listOf(
+                    "Stephen King",
+                    "Frank Darabont"),
+            duration = "2h 22m",
+            releaseDate = "1994",
+            genre = "Drama"
         ),
         Movie(
             id = 2,
@@ -91,7 +112,12 @@ fun getSampleMovies(): List<Movie> {
                 Actor("Noah Emmerich", R.drawable.the_truman_show_actor3),
                 Actor("Natascha McElhone", R.drawable.the_truman_show_actor4),
                 Actor("Ed Harris", R.drawable.the_truman_show_actor5)
-            )
+            ),
+            directors = listOf("Peter Weir"),
+            writers = listOf("Andrew Niccol"),
+            duration = "1h 43m",
+            releaseDate = "1998",
+            genre = "Comedy/Drama"
         ),
         Movie(
             id = 3,
@@ -116,7 +142,14 @@ fun getSampleMovies(): List<Movie> {
                 Actor("Stanley Tucci", R.drawable.the_devil_wears_prada_actor4),
                 Actor("Adrian Grenier", R.drawable.the_devil_wears_prada_actor5),
                 Actor("Tracie Thoms", R.drawable.the_devil_wears_prada_actor6)
-            )
+            ),
+            directors = listOf("David Frankel"),
+            writers = listOf(
+                    "Aline Brosh McKenna",
+                "Lauren Weisberger"),
+            duration = "1h 49m",
+            releaseDate = "2006",
+            genre = "Comedy/Drama"
         )
     )
 }
