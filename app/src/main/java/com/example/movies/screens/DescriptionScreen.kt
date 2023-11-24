@@ -7,19 +7,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -39,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.movies.Actor
-import com.example.movies.R
 import com.example.movies.Scene
 import com.example.movies.getSampleMovies
 
@@ -53,7 +51,8 @@ fun DescriptionScreen(movieId: Int) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
@@ -123,7 +122,6 @@ fun DescriptionScreen(movieId: Int) {
                     )
                 }
 
-                // Tab for Actors
                 Tab(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 }
@@ -135,14 +133,11 @@ fun DescriptionScreen(movieId: Int) {
                 }
             }
 
-            // Display content based on the selected tab
             when (selectedTabIndex) {
                 0 -> {
-                    // Show Scenes content
                     ScenesContent(movie.scenes)
                 }
                 else -> {
-                    // Show Actors content
                     CastContent(movie.cast)
                 }
             }
@@ -154,7 +149,7 @@ fun DescriptionScreen(movieId: Int) {
 @Composable
 fun ScenesContent(scenes: List<Scene>) {
     LazyVerticalGrid(columns = GridCells.Fixed(3),
-            modifier = Modifier.fillMaxHeight()) {
+            modifier = Modifier.height(360.dp)) {
         items(scenes) { scene ->
             ZoomableImage(image = scene.image)
         }
@@ -163,8 +158,7 @@ fun ScenesContent(scenes: List<Scene>) {
 
 @Composable
 fun CastContent(actors: List<Actor>) {
-    // Display actors with names and zoomable images
-    LazyColumn {
+    LazyColumn (modifier = Modifier.height(370.dp)){
         items(actors) { actor ->
             Row(
                 modifier = Modifier
@@ -173,7 +167,7 @@ fun CastContent(actors: List<Actor>) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = actor.image), // Placeholder image
+                    painter = painterResource(id = actor.image),
                     contentDescription = actor.name,
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
@@ -217,7 +211,6 @@ fun ShowZoomedInView(image: Int) {
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            // Display the zoomed-in image
             ZoomableImage(image = image, modifier = Modifier.fillMaxSize())
         }
     }
