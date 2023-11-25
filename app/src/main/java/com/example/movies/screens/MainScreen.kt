@@ -14,7 +14,7 @@ fun MainScreen(navController: NavController) {
         LazyColumn {
             items(getSampleMovies()) { movie ->
                 MovieItem(movie = movie, onClick = {
-                    navController.navigate("descriptionScreen/${movie.id}")
+                    navController.navigate(DESCRIPTION_ROUTE)
                 })
             }
         }

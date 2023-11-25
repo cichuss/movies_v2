@@ -2,8 +2,6 @@ package com.example.movies.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.example.movies.Actor
 import com.example.movies.Scene
 import com.example.movies.getSampleMovies
@@ -61,7 +58,6 @@ fun DescriptionScreen(movieId: Int) {
                     .height(200.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Main image
                 Image(
                     painter = painterResource(id = movie.image),
                     contentDescription = movie.description,
@@ -70,8 +66,6 @@ fun DescriptionScreen(movieId: Int) {
                         .clip(MaterialTheme.shapes.medium),
                     contentScale = ContentScale.Fit
                 )
-
-                // Movie details
                 Column(
                     modifier = Modifier
                         .weight(2f)
@@ -110,7 +104,6 @@ fun DescriptionScreen(movieId: Int) {
                     .clip(MaterialTheme.shapes.medium),
                 contentColor = MaterialTheme.colorScheme.primary
             ) {
-                // Tab for Scenes
                 Tab(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 }
@@ -151,7 +144,17 @@ fun ScenesContent(scenes: List<Scene>) {
     LazyVerticalGrid(columns = GridCells.Fixed(3),
             modifier = Modifier.height(360.dp)) {
         items(scenes) { scene ->
-            ZoomableImage(image = scene.image)
+            Image(
+                painter = painterResource(id = scene.image),
+                contentDescription = null,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .clip(MaterialTheme.shapes.medium)
+                    .height(120.dp)
+                    .padding(1.dp),
+
+                contentScale = ContentScale.Crop
+            )
         }
     }
 }
@@ -179,39 +182,6 @@ fun CastContent(actors: List<Actor>) {
                 Text(text = actor.name,
                     fontSize = 16.sp)
             }
-        }
-    }
-}
-
-@Composable
-fun ZoomableImage(image: Int, modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(id = image),
-        contentDescription = null,
-        modifier = modifier
-            .background(MaterialTheme.colorScheme.background)
-            .clickable {
-//                ShowZoomedInView(image = image)
-            }
-            .clip(MaterialTheme.shapes.medium)
-            .height(120.dp)
-            .padding(1.dp),
-
-        contentScale = ContentScale.Crop
-    )
-}
-
-@Composable
-fun ShowZoomedInView(image: Int) {
-    Dialog(
-        onDismissRequest = { /* Handle dismiss if needed */ }
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            ZoomableImage(image = image, modifier = Modifier.fillMaxSize())
         }
     }
 }
