@@ -1,7 +1,11 @@
 package com.example.movies.screens
 
+import android.net.Uri
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,11 +21,16 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -30,13 +39,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.example.movies.Actor
 import com.example.movies.Scene
+import com.example.movies.Trailer
 import com.example.movies.getSampleMovies
+import com.example.movies.viewModels.MovieViewModel
 
 @Composable
 fun DescriptionScreen(movieId: Int) {
@@ -124,14 +140,27 @@ fun DescriptionScreen(movieId: Int) {
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(5.dp))
                 }
+                Tab(
+                    selected = selectedTabIndex == 2,
+                    onClick = { selectedTabIndex = 2 }
+                ) {
+                    Text("Trailers",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(5.dp)
+                    )
+                }
             }
 
             when (selectedTabIndex) {
                 0 -> {
                     ScenesContent(movie.scenes)
                 }
-                else -> {
+                1 -> {
                     CastContent(movie.cast)
+                }
+                else -> {
+                    TrailersContent(movie.trailers)
                 }
             }
         }
@@ -182,6 +211,36 @@ fun CastContent(actors: List<Actor>) {
                 Text(text = actor.name,
                     fontSize = 16.sp)
             }
+        }
+    }
+}
+
+@Composable
+fun TrailersContent(trailers: List<Trailer>) {
+    val context = LocalContext.current
+    val videoUrl = "android.resource://${context.packageName}/raw/nr"
+    val exoPlayer = remember(context) {
+        ExoPlayer.Builder(context).build().apply {
+            val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
+            setMediaItem(mediaItem)
+            prepare()
+            playWhenReady = true
+        }
+    }
+
+    AndroidView(factory = { context ->
+        PlayerView(context).apply {
+            player = exoPlayer
+            layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        }
+    }, update = { view ->
+        view.player = exoPlayer
+        view.onResume()
+    })
+
+    DisposableEffect(exoPlayer) {
+        onDispose {
+            exoPlayer.release()
         }
     }
 }

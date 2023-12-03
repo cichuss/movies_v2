@@ -20,8 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-data class Movie(val id: Int, val title: String, val image: Int, val description: String, val scenes: List<Scene>, val cast: List<Actor>, val directors: List<String>, val writers: List<String>, val releaseDate: String, val duration: String, val genre: String)
+data class Movie(val id: Int, val title: String, val image: Int, val description: String, val scenes: List<Scene>, val cast: List<Actor>, val directors: List<String>, val writers: List<String>, val releaseDate: String, val duration: String, val genre: String, val trailers: List<Trailer>)
 data class Scene(val image: Int)
+data class Trailer(val trailer: Int)
 data class Actor(val name: String, val image: Int)
 
 @Composable
@@ -88,7 +89,11 @@ fun getSampleMovies(): List<Movie> {
                     "Frank Darabont"),
             duration = "2h 22m",
             releaseDate = "1994",
-            genre = "Drama"
+            genre = "Drama",
+            trailers = listOf(
+                Trailer(R.drawable.the_shawshank_redemption_scene1),
+                Trailer(R.drawable.the_shawshank_redemption_scene2)
+            )
         ),
         Movie(
             id = 2,
@@ -117,7 +122,11 @@ fun getSampleMovies(): List<Movie> {
             writers = listOf("Andrew Niccol"),
             duration = "1h 43m",
             releaseDate = "1998",
-            genre = "Comedy/Drama"
+            genre = "Comedy/Drama",
+            trailers = listOf(
+                Trailer(R.drawable.the_shawshank_redemption_scene1),
+                Trailer(R.drawable.the_shawshank_redemption_scene2)
+            )
         ),
         Movie(
             id = 3,
@@ -149,7 +158,11 @@ fun getSampleMovies(): List<Movie> {
                 "Lauren Weisberger"),
             duration = "1h 49m",
             releaseDate = "2006",
-            genre = "Comedy/Drama"
+            genre = "Comedy/Drama",
+            trailers = listOf(
+                Trailer(R.drawable.the_shawshank_redemption_scene1),
+                Trailer(R.drawable.the_shawshank_redemption_scene2)
+            )
         )
     )
 }
