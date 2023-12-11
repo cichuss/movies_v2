@@ -33,8 +33,8 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             .padding(16.dp)
             .clickable {
                 onClick()
-                }
-        ) {
+            }
+    ) {
         Image(
             painter = painterResource(id = movie.image),
             contentDescription = movie.description,
@@ -85,14 +85,15 @@ fun getSampleMovies(): List<Movie> {
             ),
             directors = listOf("Frank Darabont"),
             writers = listOf(
-                    "Stephen King",
-                    "Frank Darabont"),
+                "Stephen King",
+                "Frank Darabont"),
             duration = "2h 22m",
             releaseDate = "1994",
             genre = "Drama",
             trailers = listOf(
-                Trailer(R.drawable.the_shawshank_redemption_scene1),
-                Trailer(R.drawable.the_shawshank_redemption_scene2)
+                Trailer(R.raw.the_shawshank_redemption_t1),
+                Trailer(R.raw.the_shawshank_redemption_t2),
+                Trailer(R.raw.the_shawshank_redemption_t3)
             )
         ),
         Movie(
@@ -124,8 +125,9 @@ fun getSampleMovies(): List<Movie> {
             releaseDate = "1998",
             genre = "Comedy/Drama",
             trailers = listOf(
-                Trailer(R.drawable.the_shawshank_redemption_scene1),
-                Trailer(R.drawable.the_shawshank_redemption_scene2)
+                Trailer(R.raw.the_truman_show_t1),
+                Trailer(R.raw.the_truman_show_t2),
+                Trailer(R.raw.the_truman_show_t3)
             )
         ),
         Movie(
@@ -154,17 +156,16 @@ fun getSampleMovies(): List<Movie> {
             ),
             directors = listOf("David Frankel"),
             writers = listOf(
-                    "Aline Brosh McKenna",
+                "Aline Brosh McKenna",
                 "Lauren Weisberger"),
             duration = "1h 49m",
             releaseDate = "2006",
             genre = "Comedy/Drama",
             trailers = listOf(
-                Trailer(R.drawable.the_shawshank_redemption_scene1),
-                Trailer(R.drawable.the_shawshank_redemption_scene2)
+                Trailer(R.raw.the_devil_wears_prada_t1),
+                Trailer(R.raw.the_devil_wears_prada_t2),
+                Trailer(R.raw.the_devil_wears_prada_t3)
             )
         )
     )
 }
-
-
